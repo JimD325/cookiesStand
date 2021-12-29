@@ -1,5 +1,5 @@
 'use strict';
-let hours =['6 a.m','7 a.m','8 a.m','9 a.m','10 a.m','11 a.m','12 p.m','1 p.m','2 p.m','3 p.m','4 p.m','5 p.m','6 p.m','7 p.m'];
+let hours =['6 am','7 am','8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm','4 pm','5 pm','6 pm','7 pm'];
 
 
 let Seattle = {
@@ -20,6 +20,7 @@ let Seattle = {
       this.hourlyCookieArray.push(hourlyCookies);
     }
   },
+  // render method is what allows the content to appear on the page.
   render: function() {
     this.calcCookiesPerHour();
     // console.log(this.dailyTotal);
@@ -30,7 +31,7 @@ let Seattle = {
     let headText = document.createTextNode(`${this.name} location cookie sales by hour`);
     headerElement.appendChild(headText);
     let headPosition = document.getElementsByTagName('div')[0];
-    headPosition.appendChild(headerElement);
+    headPosition.appendChild(headerElement); 
     // list element creation using DOM manipulation
     let listElement = document.createElement('ul');
     let listText = document.createTextNode('');
@@ -40,7 +41,7 @@ let Seattle = {
     // list item element creation using dom manipulation, using a for loop to iterate the entire list.
     for (let i = 0; i < hours.length; i++){
       let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`${hours[i]} ${this.hourlyCookieArray[i]} cookies`);
+      let itemText = document.createTextNode(`${hours[i]}: ${this.hourlyCookieArray[i]} cookies`);
       itemElement.appendChild(itemText);
       let itemPosition = document.getElementsByTagName('ul')[0];
       itemPosition.appendChild(itemElement);
@@ -95,7 +96,7 @@ let Tokyo = {
     // list item element creation using dom manipulation, using a for loop to iterate the entire list.
     for (let i = 0; i < hours.length; i++){
       let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`${hours[i]} ${this.hourlyCookieArray[i]} cookies`);
+      let itemText = document.createTextNode(`${hours[i]}: ${this.hourlyCookieArray[i]} cookies`);
       itemElement.appendChild(itemText);
       let itemPosition = document.getElementsByTagName('ul')[1];
       itemPosition.appendChild(itemElement);
@@ -150,7 +151,7 @@ let Dubai = {
     // list item element creation using dom manipulation, using a for loop to iterate the entire list.
     for (let i = 0; i < hours.length; i++){
       let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`${hours[i]} ${this.hourlyCookieArray[i]} cookies`);
+      let itemText = document.createTextNode(`${hours[i]}: ${this.hourlyCookieArray[i]} cookies`);
       itemElement.appendChild(itemText);
       let itemPosition = document.getElementsByTagName('ul')[2];
       itemPosition.appendChild(itemElement);
@@ -205,7 +206,7 @@ let Paris = {
     // list item element creation using dom manipulation, using a for loop to iterate the entire list.
     for (let i = 0; i < hours.length; i++){
       let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`${hours[i]} ${this.hourlyCookieArray[i]} cookies`);
+      let itemText = document.createTextNode(`${hours[i]}: ${this.hourlyCookieArray[i]} cookies`);
       itemElement.appendChild(itemText);
       let itemPosition = document.getElementsByTagName('ul')[3];
       itemPosition.appendChild(itemElement);
@@ -260,7 +261,7 @@ let Lima = {
     // list item element creation using dom manipulation, using a for loop to iterate the entire list.
     for (let i = 0; i < hours.length; i++){
       let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`${hours[i]} ${this.hourlyCookieArray[i]} cookies`);
+      let itemText = document.createTextNode(`${hours[i]}: ${this.hourlyCookieArray[i]} cookies`);
       itemElement.appendChild(itemText);
       let itemPosition = document.getElementsByTagName('ul')[4];
       itemPosition.appendChild(itemElement);
