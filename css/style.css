@@ -37,3 +37,33 @@ li {
   border-color:black;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 };
+table {
+  border-width: 2px;
+  border-style: solid;
+
+}
+thead {
+  font-size: 25pt;
+  border-width: 2px;
+  border-style: solid;
+  width:fit-content
+}
+tbody {
+  font-size: 25pt;
+  border-width: 2px;
+  border-style: solid;
+}
+th {
+  width:auto;
+  border-width: 2px;
+  border-style: solid;
+  
+}
+tr { 
+  border-width: 2px;
+  border-style: solid;
+}
+td {
+  border-width: 2px;
+  border-style: solid; 
+}

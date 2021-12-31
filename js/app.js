@@ -1,280 +1,121 @@
 'use strict';
-let hours =['6 am','7 am','8 am','9 am','10 am','11 am','12 pm','1 pm','2 pm','3 pm','4 pm','5 pm','6 pm','7 pm'];
+let hours =['','6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00pm','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm','6:00pm','7:00pm', 'Total'];
+let TotalHourlyCookies = [];
+const myTable = document.getElementById('theTable');
+let dailyCookie = 0;
+let locationSum=0;
+let thead = document.createElement('thead');
+myTable.appendChild(thead);
+let trh = document.createElement('tr');
+thead.appendChild(trh);
 
 
-let Seattle = {
-  name: 'Seattle',
-  min: 23,
-  max: 65,
-  avr: 6.3,
-  dailyTotal: 0,
-  hourlyCookieArray :[],
-  randomCustomer: function() {
-    return Math.floor(Math.random() * (this.max - this.min + 1) + this.min); //random number of customers
-  },
-  calcCookiesPerHour: function () {
-    for (let i = 0; i < hours.length; i++){
+// theader autofill header row to table
+for (let i = 0; i < hours.length; i++){
+  let theader = document.createElement('th');
+  theader.textContent = (hours[i]);
+  trh.appendChild(theader);
+}
+let tfoot = document.createElement('tfoot');
+myTable.appendChild(tfoot);
+let trf = document.createElement('tr');
+tfoot.appendChild(trf);
+
+
+
+function Location (name, min, max, avr){
+  this.name = name;
+  this.min = min;
+  this.max = max;
+  this.avr = avr;
+  this.hourlyCookieArray = [];
+  this.dailyCookieArray = [];
+  this.randomCustomer = function () {
+    return Math.ceil(Math.random() * (this.max - this.min + 1) + this.min);
+
+  };
+  this.calcCookiesPerHour = function () {
+
+    for (let i = 0; i < hours.length-2; i++){
       let hourlyCustomer= this.randomCustomer(); //stores randomly generated customer count for one hour
       let hourlyCookies= Math.ceil(hourlyCustomer*this.avr);
-      this.dailyTotal += hourlyCookies;
-      this.hourlyCookieArray.push(hourlyCookies);
+      this.hourlyCookieArray.push((hourlyCookies));
+      TotalHourlyCookies.push((hourlyCookies));
+      dailyCookie = dailyCookie +hourlyCookies;
     }
-  },
-  // render method is what allows the content to appear on the page.
-  render: function() {
+    this.dailyCookieArray.push(dailyCookie);
+
+  };
+  this.calcCompanyDailyCookies = function (){
+    for (let i = 0; i < this.dailyCookieArray.length; i++){
+      locationSum = locationSum + this.dailyCookieArray[i];
+      console.log(locationSum);
+    }
+  };
+  this.render=function(){
     this.calcCookiesPerHour();
-    // console.log(this.dailyTotal);
-    // console.log(this.hourlyCookieArray);
-    // console.log(`In ${hours.length} hours of operation, our ${this.name} location has sold ${this.dailyTotal} cookies!`);
-    // header element creation using DOM manipulation
-    let headerElement = document.createElement('h2');
-    let headText = document.createTextNode(`${this.name} location cookie sales by hour`);
-    headerElement.appendChild(headText);
-    let headPosition = document.getElementsByTagName('div')[0];
-    headPosition.appendChild(headerElement); 
-    // list element creation using DOM manipulation
-    let listElement = document.createElement('ul');
-    let listText = document.createTextNode('');
-    listElement.appendChild(listText);
-    let listPosition = document.getElementsByTagName('div')[0];
-    listPosition.appendChild(listElement);
-    // list item element creation using dom manipulation, using a for loop to iterate the entire list.
-    for (let i = 0; i < hours.length; i++){
-      let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`${hours[i]}: ${this.hourlyCookieArray[i]} cookies`);
-      itemElement.appendChild(itemText);
-      let itemPosition = document.getElementsByTagName('ul')[0];
-      itemPosition.appendChild(itemElement);
+    this.calcCompanyDailyCookies();
+    // this.calcCompanyDailyCookies();
+    // attempting to make format of rendered table match that on canvas.
+    let headerBlank = document.createElement('th');
+    headerBlank.textContent = ('     ');
+    // theader autofill to table.
+
+    let tbody = document.createElement('tbody');
+    myTable.appendChild(tbody);
+
+    let trb = document.createElement('tr');
+    tbody.appendChild(trb);
+
+    let bodyCellOne = document.createElement('td');
+    bodyCellOne.textContent = (this.name);
+    trb.appendChild(bodyCellOne);
+
+    for (let i = 0; i < hours.length-2; i++){
+      let tbodydata = document.createElement('td');
+      tbodydata.textContent = (this.hourlyCookieArray[i]);
+      trb.appendChild(tbodydata);
     }
-    // adding the Total cookies sold on that day using DOM manipulation, likely a cleaner way exists, should ask about it.
-    for (let i = 14; i <= hours.length; i++){
-      let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`Total: ${this.dailyTotal} cookies`);
-      itemElement.appendChild(itemText);
-      let itemPosition = document.getElementsByTagName('ul')[0];
-      itemPosition.appendChild(itemElement);
-    }
-  },
-};
+    let LocationEndDaySales = document.createElement('td');
+    LocationEndDaySales.textContent = (this.dailyCookieArray);
+    trb.appendChild(LocationEndDaySales);
+  };
+}
+
+let Seattle = new Location ('Seattle', 23,65,6.3);
+let Tokyo = new Location ('Tokyo',3,24,1.2);
+let Dubai = new Location ('Dubai', 11, 38,3.7);
+let Paris = new Location ('Paris',20,38,2.3);
+let Lima = new Location ('Lima',2,16,4.6);
+
+
+let tfootdata = document.createElement('td');
+tfootdata.textContent= ('Totals');
+trf.appendChild(tfootdata);
+
+
+let tfootCompanyWideTotal = document.createElement('td');
+tfootCompanyWideTotal.textContent = (locationSum);
+trf.appendChild(tfootCompanyWideTotal);
+
+
+
+
 Seattle.render();
-///////////////////////////////////
-let Tokyo = {
-  name: 'Tokyo',
-  min: 3,
-  max: 24,
-  avr: 1.2,
-  dailyTotal: 0,
-  hourlyCookieArray :[],
-  randomCustomer: function() {
-    return Math.floor(Math.random() * (this.max - this.min + 1) + this.min); //random number of customers
-  },
-  calcCookiesPerHour: function () {
-    for (let i = 0; i < hours.length; i++){
-      let hourlyCustomer= this.randomCustomer(); //stores randomly generated customer count for one hour
-      let hourlyCookies= Math.ceil(hourlyCustomer*this.avr);
-      this.dailyTotal += hourlyCookies;
-      this.hourlyCookieArray.push(hourlyCookies);
-    }
-  },
-  render: function() {
-    this.calcCookiesPerHour();
-    // console.log(this.dailyTotal);
-    // console.log(this.hourlyCookieArray);
-    // console.log(`In ${hours.length} hours of operation, our ${this.name} location has sold ${this.dailyTotal} cookies!`);
-    // header element creation using DOM manipulation
-    let headerElement = document.createElement('h2');
-    let headText = document.createTextNode(`${this.name} location cookie sales by hour`);
-    headerElement.appendChild(headText);
-    let headPosition = document.getElementsByTagName('div')[0];
-    headPosition.appendChild(headerElement);
-    // list element creation using DOM manipulation
-    let listElement = document.createElement('ul');
-    let listText = document.createTextNode('');
-    listElement.appendChild(listText);
-    let listPosition = document.getElementsByTagName('div')[0];
-    listPosition.appendChild(listElement);
-    // list item element creation using dom manipulation, using a for loop to iterate the entire list.
-    for (let i = 0; i < hours.length; i++){
-      let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`${hours[i]}: ${this.hourlyCookieArray[i]} cookies`);
-      itemElement.appendChild(itemText);
-      let itemPosition = document.getElementsByTagName('ul')[1];
-      itemPosition.appendChild(itemElement);
-    }
-    // adding the Total cookies sold on that day using DOM manipulation, likely a cleaner way exists, should ask about it.
-    for (let i = 14; i <= hours.length; i++){
-      let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`Total: ${this.dailyTotal} cookies`);
-      itemElement.appendChild(itemText);
-      let itemPosition = document.getElementsByTagName('ul')[1];
-      itemPosition.appendChild(itemElement);
-    }
-  },
-};
 Tokyo.render();
-///////////////////////////////////
-let Dubai = {
-  name: 'Dubai',
-  min: 11,
-  max: 38,
-  avr: 3.7,
-  dailyTotal: 0,
-  hourlyCookieArray :[],
-  randomCustomer: function() {
-    return Math.floor(Math.random() * (this.max - this.min + 1) + this.min); //random number of customers
-  },
-  calcCookiesPerHour: function () {
-    for (let i = 0; i < hours.length; i++){
-      let hourlyCustomer= this.randomCustomer(); //stores randomly generated customer count for one hour
-      let hourlyCookies= Math.ceil(hourlyCustomer*this.avr);
-      this.dailyTotal += hourlyCookies;
-      this.hourlyCookieArray.push(hourlyCookies);
-    }
-  },
-  render: function() {
-    this.calcCookiesPerHour();
-    // console.log(this.dailyTotal);
-    // console.log(this.hourlyCookieArray);
-    // console.log(`In ${hours.length} hours of operation, our ${this.name} location has sold ${this.dailyTotal} cookies!`);
-    // header element creation using DOM manipulation
-    let headerElement = document.createElement('h2');
-    let headText = document.createTextNode(`${this.name} location cookie sales by hour`);
-    headerElement.appendChild(headText);
-    let headPosition = document.getElementsByTagName('div')[0];
-    headPosition.appendChild(headerElement);
-    // list element creation using DOM manipulation
-    let listElement = document.createElement('ul');
-    let listText = document.createTextNode('');
-    listElement.appendChild(listText);
-    let listPosition = document.getElementsByTagName('div')[0];
-    listPosition.appendChild(listElement);
-    // list item element creation using dom manipulation, using a for loop to iterate the entire list.
-    for (let i = 0; i < hours.length; i++){
-      let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`${hours[i]}: ${this.hourlyCookieArray[i]} cookies`);
-      itemElement.appendChild(itemText);
-      let itemPosition = document.getElementsByTagName('ul')[2];
-      itemPosition.appendChild(itemElement);
-    }
-    // adding the Total cookies sold on that day using DOM manipulation, likely a cleaner way exists, should ask about it.
-    for (let i = 14; i <= hours.length; i++){
-      let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`Total: ${this.dailyTotal} cookies`);
-      itemElement.appendChild(itemText);
-      let itemPosition = document.getElementsByTagName('ul')[2];
-      itemPosition.appendChild(itemElement);
-    }
-  },
-};
 Dubai.render();
-///////////////////////////////////
-let Paris = {
-  name: 'Paris',
-  min: 20,
-  max: 38,
-  avr: 2.3,
-  dailyTotal: 0,
-  hourlyCookieArray :[],
-  randomCustomer: function() {
-    return Math.floor(Math.random() * (this.max - this.min + 1) + this.min); //random number of customers
-  },
-  calcCookiesPerHour: function () {
-    for (let i = 0; i < hours.length; i++){
-      let hourlyCustomer= this.randomCustomer(); //stores randomly generated customer count for one hour
-      let hourlyCookies= Math.ceil(hourlyCustomer*this.avr);
-      this.dailyTotal += hourlyCookies;
-      this.hourlyCookieArray.push(hourlyCookies);
-    }
-  },
-  render: function() {
-    this.calcCookiesPerHour();
-    // console.log(this.dailyTotal);
-    // console.log(this.hourlyCookieArray);
-    // console.log(`In ${hours.length} hours of operation, our ${this.name} location has sold ${this.dailyTotal} cookies!`);
-    // header element creation using DOM manipulation
-    let headerElement = document.createElement('h2');
-    let headText = document.createTextNode(`${this.name} location cookie sales by hour`);
-    headerElement.appendChild(headText);
-    let headPosition = document.getElementsByTagName('div')[0];
-    headPosition.appendChild(headerElement);
-    // list element creation using DOM manipulation
-    let listElement = document.createElement('ul');
-    let listText = document.createTextNode('');
-    listElement.appendChild(listText);
-    let listPosition = document.getElementsByTagName('div')[0];
-    listPosition.appendChild(listElement);
-    // list item element creation using dom manipulation, using a for loop to iterate the entire list.
-    for (let i = 0; i < hours.length; i++){
-      let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`${hours[i]}: ${this.hourlyCookieArray[i]} cookies`);
-      itemElement.appendChild(itemText);
-      let itemPosition = document.getElementsByTagName('ul')[3];
-      itemPosition.appendChild(itemElement);
-    }
-    // adding the Total cookies sold on that day using DOM manipulation, likely a cleaner way exists, should ask about it.
-    for (let i = 14; i <= hours.length; i++){
-      let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`Total: ${this.dailyTotal} cookies`);
-      itemElement.appendChild(itemText);
-      let itemPosition = document.getElementsByTagName('ul')[3];
-      itemPosition.appendChild(itemElement);
-    }
-  },
-};
 Paris.render();
-///////////////////////////////////
-let Lima = {
-  name: 'Lima',
-  min: 2,
-  max: 16,
-  avr: 4.6,
-  dailyTotal: 0,
-  hourlyCookieArray :[],
-  randomCustomer: function() {
-    return Math.floor(Math.random() * (this.max - this.min + 1) + this.min); //random number of customers
-  },
-  calcCookiesPerHour: function () {
-    for (let i = 0; i < hours.length; i++){
-      let hourlyCustomer= this.randomCustomer(); //stores randomly generated customer count for one hour
-      let hourlyCookies= Math.ceil(hourlyCustomer*this.avr);
-      this.dailyTotal += hourlyCookies;
-      this.hourlyCookieArray.push(hourlyCookies);
-    }
-  },
-  render: function() {
-    this.calcCookiesPerHour();
-    // console.log(this.dailyTotal);
-    // console.log(this.hourlyCookieArray);
-    // console.log(`In ${hours.length} hours of operation, our ${this.name} location has sold ${this.dailyTotal} cookies!`);
-    // header element creation using DOM manipulation
-    let headerElement = document.createElement('h2');
-    let headText = document.createTextNode(`${this.name} location cookie sales by hour`);
-    headerElement.appendChild(headText);
-    let headPosition = document.getElementsByTagName('div')[0];
-    headPosition.appendChild(headerElement);
-    // list element creation using DOM manipulation
-    let listElement = document.createElement('ul');
-    let listText = document.createTextNode('');
-    listElement.appendChild(listText);
-    let listPosition = document.getElementsByTagName('div')[0];
-    listPosition.appendChild(listElement);
-    // list item element creation using dom manipulation, using a for loop to iterate the entire list.
-    for (let i = 0; i < hours.length; i++){
-      let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`${hours[i]}: ${this.hourlyCookieArray[i]} cookies`);
-      itemElement.appendChild(itemText);
-      let itemPosition = document.getElementsByTagName('ul')[4];
-      itemPosition.appendChild(itemElement);
-    }
-    // adding the Total cookies sold on that day using DOM manipulation, likely a cleaner way exists, should ask about it.
-    for (let i = 14; i <= hours.length; i++){
-      let itemElement = document.createElement('li');
-      let itemText = document.createTextNode(`Total: ${this.dailyTotal} cookies`);
-      itemElement.appendChild(itemText);
-      let itemPosition = document.getElementsByTagName('ul')[4];
-      itemPosition.appendChild(itemElement);
-    }
-  },
-};
 Lima.render();
-///////////////////////////////////
+console.log(TotalHourlyCookies);
+
+
+
+for (let i = 0; i < hours.length-2; i++){
+  let sumCookies = TotalHourlyCookies[i]+TotalHourlyCookies[i+14]+TotalHourlyCookies[i+28]+TotalHourlyCookies[i+42]+TotalHourlyCookies[i+56];
+  let tftotal =document.createElement('td');
+  tftotal.textContent=(sumCookies);
+  trf.appendChild(tftotal);
+}
+
+console.log(myTable);
+
