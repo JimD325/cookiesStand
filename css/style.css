@@ -1,16 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
 body{
   padding-top: 15px;
   padding-left: 15px;
   background-color:rgb(250, 221, 184);
   width: 960px;
   border: 10px, solid, black;
+  background-image: url("/img/SalmonCookie.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-y: 25%;
+  height: 960px;
+  background-attachment:fixed;
+
 }
 h1 {
+  Margin: 10px;
+  padding: 10px;
   font-size: 36pt;
   font-family: 'Hanalei Fill', Arial, Helvetica, sans-serif;
-  color:rgba(255, 255, 255, 0.739);
+  color:Black;
   background-color: firebrick;
   width:fit-content;
+  position:relative;
 }
 h2 {
   color:rgb(172, 87, 23); 
@@ -23,12 +38,6 @@ h2 {
   font-size: 28pt;
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
-ul {
-
-  border-color:black;
-  border-width: 1px;
-  width:fit-content;
-}
 li {
   background-color: rgba(0, 150, 150, 0.472);
   color:black;
@@ -36,13 +45,18 @@ li {
   border-width: 1px;
   border-color:black;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-};
+  display:inline;
+}
 table {
-  border-width: 2px;
+  Margin: 100px;
+  font-size: 25pt;
+  border-width: 5px;
   border-style: solid;
+  object-position:unset;
 
 }
 thead {
+  background-color:rgb(250, 221, 184);
   font-size: 25pt;
   border-width: 2px;
   border-style: solid;
@@ -54,16 +68,34 @@ tbody {
   border-style: solid;
 }
 th {
+  background-color:rgb(250, 221, 184);
   width:auto;
   border-width: 2px;
   border-style: solid;
+  padding: 4px;
+  font-size: 25pt;
   
 }
 tr { 
+  background-color:rgb(250, 221, 184);
+  background-color: rgba(42, 41, 16, 0.4);
+  font-size: 25pt;
   border-width: 2px;
   border-style: solid;
 }
 td {
+  background-color:rgb(250, 221, 184);
   border-width: 2px;
   border-style: solid; 
+  padding: 4px;
+  font-size: 25pt;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
+nav {
+  border-width: 3px;
+  border-style: solid;
+  font-size: 22px;
+  
+}
+
+ 

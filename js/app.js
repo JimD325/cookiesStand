@@ -1,9 +1,9 @@
 'use strict';
 let hours =['','6:00am','7:00am','8:00am','9:00am','10:00am','11:00am','12:00pm','1:00pm','2:00pm','3:00pm','4:00pm','5:00pm','6:00pm','7:00pm', 'Total'];
 let TotalHourlyCookies = [];
+let locationDailyCookiesArray =[];
+let companyDailyCookies = 0;
 const myTable = document.getElementById('theTable');
-let dailyCookie = 0;
-let locationSum=0;
 let thead = document.createElement('thead');
 myTable.appendChild(thead);
 let trh = document.createElement('tr');
@@ -30,6 +30,7 @@ function Location (name, min, max, avr){
   this.avr = avr;
   this.hourlyCookieArray = [];
   this.dailyCookieArray = [];
+  this.dailyCookie = 0;
   this.randomCustomer = function () {
     return Math.ceil(Math.random() * (this.max - this.min + 1) + this.min);
 
@@ -41,21 +42,18 @@ function Location (name, min, max, avr){
       let hourlyCookies= Math.ceil(hourlyCustomer*this.avr);
       this.hourlyCookieArray.push((hourlyCookies));
       TotalHourlyCookies.push((hourlyCookies));
-      dailyCookie = dailyCookie +hourlyCookies;
+      this.dailyCookie = this.dailyCookie + hourlyCookies;
     }
-    this.dailyCookieArray.push(dailyCookie);
+    this.dailyCookieArray.push(this.dailyCookie);
+    locationDailyCookiesArray.push(this.dailyCookie);
+    console.log(locationDailyCookiesArray);
+    companyDailyCookies = companyDailyCookies + this.dailyCookie;
+    console.log(companyDailyCookies);
+  };
 
-  };
-  this.calcCompanyDailyCookies = function (){
-    for (let i = 0; i < this.dailyCookieArray.length; i++){
-      locationSum = locationSum + this.dailyCookieArray[i];
-      console.log(locationSum);
-    }
-  };
   this.render=function(){
     this.calcCookiesPerHour();
-    this.calcCompanyDailyCookies();
-    // this.calcCompanyDailyCookies();
+
     // attempting to make format of rendered table match that on canvas.
     let headerBlank = document.createElement('th');
     headerBlank.textContent = ('     ');
@@ -79,6 +77,10 @@ function Location (name, min, max, avr){
     let LocationEndDaySales = document.createElement('td');
     LocationEndDaySales.textContent = (this.dailyCookieArray);
     trb.appendChild(LocationEndDaySales);
+
+    // let CompanyEndDaySales = document.createElement('td');
+    // CompanyEndDaySales.textContent =('HELOOOO');
+    // trf.appendChild(CompanyEndDaySales);
   };
 }
 
@@ -94,9 +96,10 @@ tfootdata.textContent= ('Totals');
 trf.appendChild(tfootdata);
 
 
-let tfootCompanyWideTotal = document.createElement('td');
-tfootCompanyWideTotal.textContent = (locationSum);
-trf.appendChild(tfootCompanyWideTotal);
+// let tfootCompanyWideTotal = document.createElement('td');
+// tfootCompanyWideTotal.textContent = (this.locationSum);
+// trf.appendChild(tfootCompanyWideTotal);
+
 
 
 
@@ -116,6 +119,8 @@ for (let i = 0; i < hours.length-2; i++){
   tftotal.textContent=(sumCookies);
   trf.appendChild(tftotal);
 }
-
+let CompanyEndDaySales = document.createElement('td');
+CompanyEndDaySales.textContent =(companyDailyCookies);
+trf.appendChild(CompanyEndDaySales);
 console.log(myTable);
 
