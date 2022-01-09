@@ -5,6 +5,9 @@ let locationDailyCookiesArray =[];
 let companyDailyCookies = 0;
 const myTable = document.getElementById('theTable');
 let thead = document.createElement('thead');
+
+const myForm = document.getElementById('myForm');
+
 myTable.appendChild(thead);
 let trh = document.createElement('tr');
 thead.appendChild(trh);
@@ -46,9 +49,7 @@ function Location (name, min, max, avr){
     }
     this.dailyCookieArray.push(this.dailyCookie);
     locationDailyCookiesArray.push(this.dailyCookie);
-    console.log(locationDailyCookiesArray);
     companyDailyCookies = companyDailyCookies + this.dailyCookie;
-    console.log(companyDailyCookies);
   };
 
   this.render=function(){
@@ -56,7 +57,7 @@ function Location (name, min, max, avr){
 
     // attempting to make format of rendered table match that on canvas.
     let headerBlank = document.createElement('th');
-    headerBlank.textContent = ('     ');
+    headerBlank.textContent = ('');
     // theader autofill to table.
 
     let tbody = document.createElement('tbody');
@@ -78,10 +79,19 @@ function Location (name, min, max, avr){
     LocationEndDaySales.textContent = (this.dailyCookieArray);
     trb.appendChild(LocationEndDaySales);
 
-    // let CompanyEndDaySales = document.createElement('td');
-    // CompanyEndDaySales.textContent =('HELOOOO');
-    // trf.appendChild(CompanyEndDaySales);
   };
+}
+
+function handleSubmit(submit) {
+  submit.preventDefault();
+  let inputLocationName = submit.target.locationName.value;
+  let inputminCustomers= submit.target.minCustomers.value;
+  let inputMaxCustomers = submit.target.maxCustomers.value;
+  let inputCookiesPerCustomer = submit.target.cookiesPerCustomer.value;
+  console.log(submit.target.locationName.value, submit.target.minCustomers.value, submit.target.maxCustomers.value, submit.target.cookiesPerCustomer.value);
+  let inputLocation = new Location (inputLocationName,inputminCustomers,inputMaxCustomers,inputCookiesPerCustomer);
+  inputLocation.render();
+  console.log(inputLocation);
 }
 
 let Seattle = new Location ('Seattle', 23,65,6.3);
@@ -96,20 +106,11 @@ tfootdata.textContent= ('Totals');
 trf.appendChild(tfootdata);
 
 
-// let tfootCompanyWideTotal = document.createElement('td');
-// tfootCompanyWideTotal.textContent = (this.locationSum);
-// trf.appendChild(tfootCompanyWideTotal);
-
-
-
-
-
 Seattle.render();
 Tokyo.render();
 Dubai.render();
 Paris.render();
 Lima.render();
-console.log(TotalHourlyCookies);
 
 
 
@@ -122,5 +123,5 @@ for (let i = 0; i < hours.length-2; i++){
 let CompanyEndDaySales = document.createElement('td');
 CompanyEndDaySales.textContent =(companyDailyCookies);
 trf.appendChild(CompanyEndDaySales);
-console.log(myTable);
 
+myForm.addEventListener('submit',handleSubmit);
