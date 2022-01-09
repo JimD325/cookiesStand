@@ -3,61 +3,42 @@
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-body{
+Body{
+
   padding-top: 15px;
   padding-left: 15px;
   background-color:rgb(250, 221, 184);
-  width: 960px;
-  border: 10px, solid, black;
   background-image: url("/img/SalmonCookie.jpg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
   background-position-y: 25%;
-  height: 960px;
   background-attachment:fixed;
 
 }
 h1 {
-  Margin: 10px;
+  display:flex;
+  justify-content: center;
   padding: 10px;
   font-size: 36pt;
   font-family: 'Hanalei Fill', Arial, Helvetica, sans-serif;
   color:Black;
-  background-color: firebrick;
   width:fit-content;
   position:relative;
 }
-h2 {
-  color:rgb(172, 87, 23); 
-  border-style:solid;
-  border-width: 3px;
-  padding: 5px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  width: fit-content;
-  font-size: 28pt;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+#salesH1{
+margin-left: 28.5%;
 }
-li {
-  background-color: rgba(0, 150, 150, 0.472);
-  color:black;
-  font-size: 20pt;
-  border-width: 1px;
-  border-color:black;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  display:inline;
-}
-table {
-  Margin: 100px;
+
+
+
+#theTable {
   font-size: 25pt;
   border-width: 5px;
   border-style: solid;
-  object-position:unset;
-
+  align-items:flex-end;
 }
 thead {
-  background-color:rgb(250, 221, 184);
   font-size: 25pt;
   border-width: 2px;
   border-style: solid;
@@ -69,7 +50,7 @@ tbody {
   border-style: solid;
 }
 th {
-  background-color:rgb(250, 221, 184);
+  background-color:rgb(250, 221, 184,.7);
   width:auto;
   border-width: 2px;
   border-style: solid;
@@ -77,31 +58,16 @@ th {
   font-size: 25pt;
   
 }
-tr { 
-  background-color:rgb(250, 221, 184);
-  background-color: rgba(42, 41, 16, 0.4);
-  font-size: 25pt;
-  border-width: 2px;
-  border-style: solid;
-}
+
 td {
-  background-color:rgb(250, 221, 184);
+  background-color:rgb(250, 221, 184,.7);
   border-width: 2px;
   border-style: solid; 
   padding: 4px;
   font-size: 25pt;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-nav {
-  border-width: 3px;
-  border-style: solid;
-  font-size: 22px;
-  
-}
 
-* {
-  box-sizing: border-box;
-} 
 
 header{
   background-color:gray;
@@ -112,7 +78,6 @@ header{
 header img {
   margin-bottom: 10px;
   margin-top: 10px;
-  
 }
 
 
@@ -123,6 +88,8 @@ li {
   display:flex;
   width: 10rem;
   justify-content:space-evenly;
+  border-color:black;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 nav {
@@ -133,20 +100,28 @@ nav {
 }
 
 main {
-  margin: 30px auto; sets marin on top and bottom to = 30px, and automatically adjusts left and right to center main element
-  background-color: lightskyblue;
+  margin: 30px auto; 
+  background-color: rgba(135, 206, 250,.7);
   width: 960px;
   display:flex;
   flex-wrap:wrap;
   justify-content: center;
   justify-content: space-between;
-
+}
+#salesMain{
+  width: 960px;
+  display:inline;
+  background-color: rgba(0,0,0,0);
 }
 footer{
   background-color: lightsteelblue;
   height: 100px;
+  background-image: url("/img/salmon.png");
+  background-position: center;
+  background-repeat: repeat;
+  float:inline-start;
 }
-img {
+main img {
   margin-bottom: 30px;
 }
 article {
